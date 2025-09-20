@@ -1,33 +1,34 @@
-<!-- Option 1: <img> + CSS (content:url) -->
 <!doctype html>
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Flip Image (img + CSS)</title>
+  <title>Flip Image</title>
   <style>
-    /* size and basic styling */
-    #flip {
-      display: block;
-      width: 400px;           /* change as needed */
+    .flip {
+      width: 400px;
       height: auto;
       cursor: pointer;
       transition: transform .25s ease;
     }
-
-    /* small hover transform for effect */
-    #flip:hover { transform: scale(1.02); }
-
-    /* replace the displayed image on hover */
-    #flip:hover {
-      /* This replaces the displayed image — note: this doesn't change the DOM attribute `src`,
-         it changes the rendered image using CSS. */
-      content: url("https://live.staticflickr.com/8138/29099429912_0659caf55b_b.jpg");
+    .flip:hover {
+      transform: scale(1.02);
     }
   </style>
 </head>
 <body>
-  <img id="flip"
+  <img class="flip"
        src="https://images.pexels.com/photos/6785279/pexels-photo-6785279.jpeg"
+       data-alt="https://live.staticflickr.com/8138/29099429912_0659caf55b_b.jpg"
        alt="Initial image">
+  <script>
+    const img = document.querySelector(".flip");
+    img.addEventListener("mouseenter", () => {
+      img.dataset.original = img.src;
+      img.src = img.dataset.alt;
+    });
+    img.addEventListener("mouseleave", () => {
+      img.src = img.dataset.original;
+    });
+  </script>
 </body>
 </html>
